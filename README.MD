@@ -20,3 +20,19 @@ Pada eksperimen ini, saya melakukan modifikasi port koneksi pada aplikasi broadc
 
 2.3. Small Changes: Add IP and Port
 Pada bagian ini, saya menambahkan fitur identifikasi pengirim dengan menyematkan informasi alamat IP dan nomor port spesifik pengirim pada setiap pesan yang disebarkan (broadcast) oleh server. Implementasinya dilakukan dengan mengekstrak data SocketAddr saat klien pertama kali terhubung melalui listener.accept(), lalu memformatnya bersama pesan asli menggunakan makro format!("{}: {}", addr, text) sebelum dikirim ke channel broadcast. Eksperimen ini mendemonstrasikan keunggulan utama protokol WebSocket yang mendukung komunikasi dua arah (full-duplex) secara persisten. Berbeda dengan mekanisme polling pada HTTP biasa, di sini server bertindak aktif untuk langsung mendorong (push) pesan baru ke seluruh klien secara real-time. Keberadaan makro tokio::select! di dalam event loop juga sangat krusial, karena memastikan aliran stream dari klien dan antrean channel server dapat berjalan beriringan tanpa saling memblokir (non-blocking).
+
+
+Tutorial 3:
+![Screenshot tutor 2](SS/Tutor3.1.png)
+
+
+
+Refleksi : 
+Pada Tutorial 3 ini, saya membangun antarmuka klien berbasis web menggunakan framework Yew yang dikompilasi menjadi WebAssembly (Wasm). Berbeda dengan klien Command Line Interface (CLI) pada tutorial sebelumnya, klien Yew ini beroperasi langsung di dalam browser pengguna namun tetap memanfaatkan bahasa Rust secara penuh (full-stack Rust).
+
+Arsitektur dan Asinkronitas:
+Klien WebAssembly ini terhubung ke server obrolan lokal melalui protokol WebSocket menggunakan WebSocket::open("ws://127.0.0.1:8080"). Komunikasi asinkron di sini dikelola dengan sangat baik oleh framework Yew; setiap kali ada pesan baru yang disiarkan (broadcast) oleh server, event listener pada WebSocket akan menangkap pesan tersebut dan memperbarui state komponen menggunakan use_state. Pembaruan state ini memicu Yew untuk melakukan re-render secara reaktif pada Virtual DOM hanya pada bagian chat history yang relevan. Mekanisme ini memastikan halaman web tidak perlu dimuat ulang (refresh) dan UI tidak mengalami kondisi blocking (hang) saat menunggu pesan masuk dari pengguna lain.
+
+
+Aspek Kreativitas (UI/UX):
+Sebagai bentuk eksplorasi kreativitas pada antarmuka, saya mengimplementasikan desain Modern Dark Mode menggunakan modifikasi struktur makro html! dan CSS khusus. Pemilihan palet warna gelap (seperti background bernuansa charcoal atau slate) bertujuan untuk memberikan kenyamanan visual (mengurangi kelelahan mata/ eye strain) yang sangat relevan untuk aplikasi berbasis teks seperti web chat. Selain itu, tata letak elemen input, tombol pengiriman, serta chat bubble telah diatur sedemikian rupa agar responsif dan memberikan feedback visual yang jelas saat pengguna berinteraksi.
