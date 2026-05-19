@@ -1,0 +1,12 @@
+[package]
+name = "timer-lab"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+# Pastikan ada "sha1_smol" di sini!
+tokio-websockets = { version = "0.10", features = ["server", "client", "fastrand", "sha1_smol"] }
+futures-util = { version = "0.3", features = ["sink"] }
+http = "1"
+futures = "0.3.32"
