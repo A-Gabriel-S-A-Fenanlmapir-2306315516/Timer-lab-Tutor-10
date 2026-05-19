@@ -10,9 +10,9 @@ Refleksi:
 Asynchronous programming memungkinkan unit kerja berjalan terpisah dari main thread aplikasi dan memberikan notifikasi saat selesai. Dalam kasus ini, saat spawn dipanggil, tugas tersebut segera dimulai namun tidak memblokir eksekusi kode selanjutnya. Sistem tidak menunggu timer selama 2 detik selesai untuk menjalankan perintah cetak "hey hey". Hal ini menunjukkan bahwa alur kontrol dapat berpindah untuk melakukan pekerjaan lain sementara operasi asinkron sedang berjalan. Dengan model ini, aplikasi tetap responsif meskipun ada tugas yang membutuhkan waktu tunggu lama seperti akses I/O atau timer.
 
 Tutor 1:
-![Screenshot tutor 2](SS/Tutor2.1.png.png)
-![Screenshot tutor 2](SS/Tutor2.2.png.png)
-![Screenshot tutor 2](SS/Tutor2.3.png.png)
+![Screenshot tutor 2](SS/Tutor2.1.png)
+![Screenshot tutor 2](SS/Tutor2.2.png)
+![Screenshot tutor 2](SS/Tutor2.3.png)
 refleksi:
 Tutorial 2: Broadcast Chat
 2.2. Modifying the Port
